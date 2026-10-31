@@ -52,8 +52,8 @@ The queued parser fix closes one ticket only. Do not close #4471's reports as fi
 ## The desk's table
 
 This is the table on #4471. It files the one-day reports under `parser` by tenant and footnotes them.
-The ticket table above counts them on their own. Its "no ticket of its own" text means the state
-before these tickets.
+The ticket table above uses the same counts and lists those reports again as their own problem. Its
+"no ticket of its own" text means the state before these tickets.
 
 <CauseTable ticket={4471} />
 

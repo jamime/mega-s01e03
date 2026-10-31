@@ -14,13 +14,16 @@
   };
   const KEYS = Object.keys(LABEL) as Problem[];
 
-  // The desk's cause (causes.ts), except the reports it footnotes as a one-day move (desk-notes.json).
-  const problemOf = (r: Report): Problem => (notes.oneDayMove.includes(r.id) ? 'shift' : causeOf(r, tenantOf(r)) === 'hint' ? 'hint' : 'parser');
+  const isShift = (r: Report) => notes.oneDayMove.includes(r.id);
+  // Counts follow the desk's view: a one-day report stays counted under its cause, and is also listed as a shift.
+  const covers = (r: Report, key: Problem) => (key === 'shift' ? isShift(r) : causeOf(r, tenantOf(r)) === key);
+  // The chart stacks each report once.
+  const problemOf = (r: Report): Problem => (isShift(r) ? 'shift' : causeOf(r, tenantOf(r)) === 'hint' ? 'hint' : 'parser');
 
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
   const rows = $derived(
     KEYS.map((key) => {
-      const rs = merged.filter((r) => problemOf(r) === key);
+      const rs = merged.filter((r) => covers(r, key));
       const days = rs.map((r) => r.receivedAt.slice(0, 10)).sort();
       return { key, count: rs.length, tenants: new Set(rs.map((r) => r.tenant)).size, first: days[0], last: days[days.length - 1] };
     }),
@@ -36,7 +39,7 @@
   const h = (n: number) => (n / max) * 100;
 </script>
 
-<p class="sum"><strong>{merged.length}</strong> reports · <strong>{rows.length}</strong> problems · each report counted once</p>
+<p class="sum"><strong>{merged.length}</strong> reports · <strong>{rows.length}</strong> problems · counted as the desk counts: the one-day reports also count under the parser</p>
 
 <table>
   <thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>seen</th><th>ticket</th></tr></thead>
