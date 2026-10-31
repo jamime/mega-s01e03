@@ -16,11 +16,18 @@ signature: jamime
   const repo = 'https://github.com/jamime/mega-s01e03/issues';
 </script>
 
-[#4471](/kb/incidents/4471) says one issue, one fix queued. Its reports describe three problems.
-Each now has its own ticket, and each needs its own fix.
+[#4471](/kb/incidents/4471) says one issue, one fix queued. Its reports describe three problems,
+and each now has its own ticket. Engineering closed #4471 on 5 October. That update gives two
+outcomes and leaves one problem without an outcome.
+
+- **Parser: fixed.** Engineering's update names `fix(dates): parse dd/mm for eu locales`.
+- **Hint: won't fix.** Engineering's update says the booking-v3 form is retired.
+- **One-day shift: no outcome.** The update does not mention it.
 
 <Callout kind="warn">
-The queued parser fix closes one ticket only. Do not close #4471's reports as fixed when it ships.
+#4471 is closed, but the one-day reports have no fix and no decision. Do not read the closed ticket as
+"all of these are solved". The outcomes above come from engineering's update. This export ends on
+4 October, so its data cannot confirm them.
 </Callout>
 
 ## The three problems
@@ -60,7 +67,7 @@ The ticket table above uses the same counts and lists those reports again as the
 ## What is not known
 
 The cause of the one-day shift is a lead, not a finding. One of its reports, the invite that arrived
-before the booking, could also be a flip. The export ends on 4 October and the desk still takes
-reports, so the counts here move when the data does.
+before the booking, could also be a flip. The counts here come from the export, which ends the day
+before #4471 closed, so they move when the data does.
 
 <RenderStamp {signature} />
