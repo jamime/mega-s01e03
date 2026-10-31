@@ -1,0 +1,66 @@
+---
+layout: runbook
+title: '#4471 is three problems'
+owner: jamime
+status: open
+reviewed: 2026-10-31
+signature: jamime
+---
+
+<script>
+  import TicketSplit from '#lib/kb/TicketSplit.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const repo = 'https://github.com/jamime/mega-s01e03/issues';
+</script>
+
+[#4471](/kb/incidents/4471) says one issue, one fix queued. Its reports describe three problems.
+Each now has its own ticket, and each needs its own fix.
+
+<Callout kind="warn">
+The queued parser fix closes one ticket only. Do not close #4471's reports as fixed when it ships.
+</Callout>
+
+## The three problems
+
+<TicketSplit ticket={4471} links={{ parser: `${repo}/1`, hint: `${repo}/2`, shift: `${repo}/3` }} />
+
+## How to tell them apart
+
+- **Parser.** The report came by app or email, or through a booking-v2 form, from a tenant that
+  writes the day first. Day and month swap: 7 April becomes 4 July.
+- **Hint.** The report came through the form of a booking-v3 tenant. The form prints `MM/DD/YYYY`,
+  people type month first, and the form reads the entry the tenant's way. The text looks the same as
+  a parser report, so only the channel and the tenant's form separate them. A parser fix does not
+  change this form.
+- **One-day shift.** The date moves by one day: Tuesday 12 May shows as Monday 11 May. No swap of day
+  and month does that. One report has the same meeting on different days in Lisbon and Toronto, so
+  look at time zones first. That cause is not confirmed.
+
+## Do not count from these
+
+- **The intake tag.** It follows the reporter's browser, not the tenant. Every report tagged `hint`
+  came from an `en-US` browser, wherever the tenant is and whichever form it runs, so the tag misses
+  hint reports and marks parser reports as hint. The desk's table below shows both errors.
+- **The raw export.** Its pages overlap, so some reports appear twice. Count by id.
+- **Subject lines.** [Decision 0001](/kb/decisions/0001-dedupe-by-subject) treats a matching subject
+  as the same issue. In these reports, the same subject appears under different problems, and one
+  problem has many subjects.
+
+## The desk's table
+
+This is the table on #4471. It files the one-day reports under `parser` by tenant and footnotes them.
+The ticket table above counts them on their own. Its "no ticket of its own" text means the state
+before these tickets.
+
+<CauseTable ticket={4471} />
+
+## What is not known
+
+The cause of the one-day shift is a lead, not a finding. One of its reports, the invite that arrived
+before the booking, could also be a flip. The export ends on 4 October and the desk still takes
+reports, so the counts here move when the data does.
+
+<RenderStamp {signature} />
