@@ -4,7 +4,7 @@ title: '#4471 is three problems'
 owner: jamime
 status: open
 reviewed: 2026-10-31
-signature: jamime
+signature: v1.eyJzdWIiOiIxMjU5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM0MDY2MzksImV4cCI6MTc5MzQ5MzAzOX0.htkPbqmEeSfUr70TgL-iQBwEPjdrJ5-IAtIScFVPSoY
 ---
 
 <script>
